@@ -9,10 +9,12 @@ namespace RPG.Combat
 		[SerializeField] float weaponRange = 2f;
         Transform target;
 		Mover mover;
+		Animator animator;
 
 		private void Start()
 		{
 			mover = GetComponent<Mover>();
+			animator = GetComponent<Animator>();
 		}
 
 		private void Update()
@@ -25,8 +27,14 @@ namespace RPG.Combat
 			}
 			else
 			{
+				AttackBehavior();
 				mover.Cancel();
 			}
+		}
+
+		void AttackBehavior()
+		{
+			animator.SetTrigger("attack");
 		}
 
 		private bool GetIsInRange()
@@ -43,6 +51,12 @@ namespace RPG.Combat
 		public void Cancel()
 		{
 			target = null;
+		}
+
+		//Animation Event
+		void Hit()
+		{
+
 		}
     }
 }
