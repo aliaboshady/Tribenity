@@ -42,7 +42,10 @@ namespace RPG.Control
 
 			if (hasHit)
 			{
-				if(Input.GetMouseButton(0)) mover.MoveTo(hit.point);
+				if (Input.GetMouseButton(0)) { 
+					mover.StartMoveAction(hit.point);
+					//fighter.Cancel();
+				}
 				return true;
 			}
 			return false;
