@@ -6,6 +6,7 @@ namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, IAction
 	{
+		[SerializeField] float weaponDamage = 5f;
 		[SerializeField] float weaponRange = 2f;
 		[SerializeField] float timeBetweenAttacks = 1f;
 
@@ -42,6 +43,7 @@ namespace RPG.Combat
 		{
 			if (timeSinceLastAttack >= timeBetweenAttacks)
 			{
+				//This will trigger Hit() event
 				animator.SetTrigger("attack");
 				timeSinceLastAttack = 0;
 			}
@@ -66,7 +68,8 @@ namespace RPG.Combat
 		//Animation Event
 		void Hit()
 		{
-
+			Health targetHealth = target.GetComponent<Health>();
+			targetHealth.TakeDamage(weaponDamage);
 		}
-    }
+	}
 }
