@@ -42,6 +42,7 @@ namespace RPG.Combat
 
 		void AttackBehavior()
 		{
+			transform.LookAt(target.transform);
 			if (timeSinceLastAttack >= timeBetweenAttacks)
 			{
 				//This will trigger Hit() event
