@@ -9,16 +9,20 @@ namespace RPG.Movement
 		NavMeshAgent navMeshAgent;
 		Animator animator;
 		Vector3 targetPos;
+		Health health;
 
 		private void Start()
 		{
 			navMeshAgent = GetComponent<NavMeshAgent>();
 			animator = GetComponent<Animator>();
 			targetPos = transform.position;
+			health = GetComponent<Health>();
 		}
 
 		void Update()
 		{
+			navMeshAgent.enabled = !health.IsDead();
+
 			UpdateAnimator();
 			Debug.DrawLine(transform.position, targetPos, Color.yellow);
 		}
