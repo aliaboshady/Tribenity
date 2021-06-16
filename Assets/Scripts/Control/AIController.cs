@@ -22,6 +22,10 @@ namespace RPG.Control
 			{
 				fighter.Attack(player);
 			}
+			else
+			{
+				fighter.Cancel();
+			}
 		}
 
 		private bool InAttackRangeOfPlayer()
