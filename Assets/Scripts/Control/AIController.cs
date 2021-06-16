@@ -1,4 +1,5 @@
 using UnityEngine;
+using RPG.Combat;
 
 namespace RPG.Control
 {
@@ -6,20 +7,27 @@ namespace RPG.Control
 	{
 		[SerializeField] float chaseDistance = 5f;
 
+		Fighter fighter;
+		GameObject player;
+
+		private void Start()
+		{
+			fighter = GetComponent<Fighter>();
+			player = GameObject.FindWithTag("Player");
+		}
+
 		private void Update()
 		{
-			if(DistanceToPlayer() <= chaseDistance * chaseDistance)
+			if (InAttackRangeOfPlayer()  && fighter.CanAttack(player))
 			{
-				print(gameObject.name + " should chase");
+				fighter.Attack(player);
 			}
 		}
 
-		private float DistanceToPlayer()
+		private bool InAttackRangeOfPlayer()
 		{
-			GameObject player = GameObject.FindWithTag("Player");
-			if (player == null) return chaseDistance + 100; //They won't chase
-
-			return Vector3.SqrMagnitude(player.transform.position - transform.position);
+			if (player == null) return false;
+			return Vector3.SqrMagnitude(player.transform.position - transform.position) <= chaseDistance * chaseDistance;
 		}
 	}
 }
